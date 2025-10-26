@@ -3,11 +3,13 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 
 import java.util.List;
 
 public class Model {
+    private final ObservableList<Car> cars = FXCollections.observableArrayList();
     private final StringProperty promptLabelText = new SimpleStringProperty("");
     private final StringProperty inputData = new SimpleStringProperty("");
     private final ListProperty<Node> outputNodes = new SimpleListProperty<>(FXCollections.observableArrayList());
@@ -18,6 +20,14 @@ public class Model {
     private final String commentsContent = "Wpisz datę, aby wyświetlić pojazdy z komentarzami z tego dnia (dd.mm.rrrr)";
     private final String invoiceNumbers = "Faktury danego dnia";
     private final String invoiceNumbersContent = "Wpisz datę, aby wyświetlić listę faktur z tego dnia (dd.mm.rrrr)";
+
+    public ObservableList<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> newCars) {
+        this.cars.addAll(newCars);
+    }
 
     public String getPromptLabelText() {
         return promptLabelText.get();

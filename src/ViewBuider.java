@@ -1,3 +1,4 @@
+import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -12,15 +13,20 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Builder;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 class ViewBuilder implements Builder<Region> {
 
     private final Model model;
     private final BiConsumer<String, String> promptLabelHandler;
+    private final Runnable confirmHandler;
+    private final Consumer<TextFlow> outputHandler;
 
-    public ViewBuilder(Model model, BiConsumer<String, String> promptLabelHandler) {
+    public ViewBuilder(Model model, BiConsumer<String, String> promptLabelHandler, Runnable confirmHandler, Consumer<TextFlow> outputHandler) {
         this.model = model;
         this.promptLabelHandler = promptLabelHandler;
+        this.confirmHandler = confirmHandler;
+        this.outputHandler = outputHandler;
     }
 
     @Override
@@ -73,10 +79,7 @@ class ViewBuilder implements Builder<Region> {
         HBox wrapper = new HBox(confirmationButton);
         wrapper.setAlignment(Pos.CENTER);
 
-//        confirmationButton.setOnAction(e -> {
-//            List<Node> input = switchBetweenMethods(cars, inputData.get());
-//            outputNodes.setAll(input);
-//        });
+        confirmationButton.setOnAction(event -> confirmHandler.run());
         return wrapper;
     }
 
@@ -85,12 +88,7 @@ class ViewBuilder implements Builder<Region> {
         feedbackTextFlow.setPadding(new Insets(10));
         feedbackTextFlow.getStyleClass().add("feedback-label");
         VBox.setVgrow(feedbackTextFlow, Priority.ALWAYS);
-
-//        outputNodes.addListener((ListChangeListener<Node>) change -> {
-//            feedbackTextFlow.getChildren().clear();
-//            feedbackTextFlow.getChildren().addAll(outputNodes);
-//        });
-
+        model.getOutputNodes().addListener((ListChangeListener<Node>) change -> outputHandler.accept(feedbackTextFlow));
         return feedbackTextFlow;
     }
 }

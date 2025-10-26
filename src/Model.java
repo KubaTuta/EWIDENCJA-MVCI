@@ -28,6 +28,9 @@ public class Model {
     public void setCars(List<Car> newCars) {
         this.cars.addAll(newCars);
     }
+    public String getActiveButton() {
+        return activeButton;
+    }
     public void setActiveButton(String activeButton) {
         this.activeButton = activeButton;
     }
@@ -46,8 +49,11 @@ public class Model {
     public StringProperty getInputDataProperty() {
         return inputData;
     }
-    public List<Node> getOutputNodes() {
+    public ObservableList<Node> getOutputNodes() {
         return outputNodes.get();
+    }
+    public void setOutputNodes(List<Node> newOutputNodes) {
+        this.outputNodes.setAll(newOutputNodes);
     }
     public String getReg() {
         return reg;

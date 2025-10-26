@@ -28,4 +28,39 @@ public class Interactor {
         model.setPromptLabelText(label);
         model.setActiveButton(title);
     }
+
+    public void confirmUserInput() {
+        List<Node> input = switchBetweenMethods(model.getCars(), model.getInputData());
+        model.setOutputNodes(input);
+    }
+
+    private List<Node> switchBetweenMethods(List<Car> cars, String input) {
+        switch (model.getActiveButton()) {
+//            case reg:
+//                return CarMethods.showCarOfInterest(cars, input);
+//            case comments:
+//                return CarMethods.showDailyComments(cars, input);
+            case "Faktury danego dnia":
+                return showDailyInvoiceNumbers(cars, input);
+            default:
+                return new ArrayList<>();
+        }
+    }
+    private static List<Node> showDailyInvoiceNumbers(List<Car> cars, String date) {
+        List<Node> listOfInvoiceNumbers = new ArrayList<>();
+        Text sb = new Text("Numery faktur z dnia " + date + ":\n");
+        for (Car car : cars) {
+            if (car.dateOfInvoiceIssue.equals(date)) {
+                sb.setText(sb.getText() + car.invoiceNumber + ",");
+            }
+        }
+        listOfInvoiceNumbers.add(sb);
+        return listOfInvoiceNumbers;
+    }
+
+    public void showOutput(TextFlow output) {
+
+        output.getChildren().clear();
+        output.getChildren().addAll(model.getOutputNodes());
+    }
 }

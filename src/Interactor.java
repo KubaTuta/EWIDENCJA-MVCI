@@ -24,4 +24,8 @@ public class Interactor {
         return cars;
     }
 
+    public void setLabel(String title, String label) {
+        model.setPromptLabelText(label);
+        model.setActiveButton(title);
+    }
 }

@@ -1,4 +1,3 @@
-import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -12,13 +11,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.util.Builder;
 
-import java.util.List;
+import java.util.function.BiConsumer;
 
 class ViewBuilder implements Builder<Region> {
 
     private final Model model;
-    public ViewBuilder(Model model) {
+    private final BiConsumer<String, String> promptLabelHandler;
+
+    public ViewBuilder(Model model, BiConsumer<String, String> promptLabelHandler) {
         this.model = model;
+        this.promptLabelHandler = promptLabelHandler;
     }
 
     @Override
@@ -41,16 +43,13 @@ class ViewBuilder implements Builder<Region> {
     private Node createTopUniversalButton(String title, String labelSetter) {
         Button button = new Button(title);
         button.getStyleClass().add("top-button");
-//        button.setOnAction(e -> {
-//            promptLabelText.set(labelSetter);
-//            activeButtonType = title;
-//        });
+        button.setOnAction(event -> promptLabelHandler.accept(title, labelSetter));
         return button;
     }
 
     private Node createPromptLabel() {
         Label promptLabel = new Label("");
-//        promptLabel.getStyleClass().add("prompt-label");
+        promptLabel.getStyleClass().add("prompt-label");
         promptLabel.textProperty().bind(model.getPromptLabelTextProperty());
         return promptLabel;
     }
@@ -94,7 +93,4 @@ class ViewBuilder implements Builder<Region> {
 
         return feedbackTextFlow;
     }
-
-
-
 }

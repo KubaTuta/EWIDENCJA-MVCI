@@ -8,8 +8,8 @@ public class Controller {
 
     public Controller() {
         Model model = new Model();
-        viewBuilder = new ViewBuilder(model);
         interactor = new Interactor(model);
+        viewBuilder = new ViewBuilder(model, (title, label)->interactor.setLabel(title, label));
 
         model.setCars(interactor.loadCarsFromCsv());
     }

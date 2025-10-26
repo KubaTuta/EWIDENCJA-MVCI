@@ -2,9 +2,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage)  {
         Scene scene = new Scene(new Controller().getView());
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);

@@ -13,6 +13,7 @@ public class Model {
     private final StringProperty promptLabelText = new SimpleStringProperty("");
     private final StringProperty inputData = new SimpleStringProperty("");
     private final ListProperty<Node> outputNodes = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private String activeButton = "";
 
     private final String reg = "Nr rej. / VIN";
     private final String regContent = "Wpisz nr rej. lub VIN, aby wyświetlić parametry pojazdu";
@@ -24,13 +25,17 @@ public class Model {
     public ObservableList<Car> getCars() {
         return cars;
     }
-
     public void setCars(List<Car> newCars) {
         this.cars.addAll(newCars);
     }
-
+    public void setActiveButton(String activeButton) {
+        this.activeButton = activeButton;
+    }
     public String getPromptLabelText() {
         return promptLabelText.get();
+    }
+    public void setPromptLabelText(String promptLabelText) {
+        this.promptLabelText.set(promptLabelText);
     }
     public StringProperty getPromptLabelTextProperty() {
         return promptLabelText;

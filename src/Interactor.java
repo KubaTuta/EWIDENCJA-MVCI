@@ -1,3 +1,6 @@
+import javafx.scene.Node;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import utils.CsvReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;

@@ -29,9 +29,9 @@ class ViewBuilder implements Builder<Region> {
     }
 
     private Node createTopButtons() {
-        HBox topButtons = new HBox(createTopUniversalButton(model.reg, model.regContent),
-                createTopUniversalButton(model.comments, model.commentsContent),
-                createTopUniversalButton(model.invoiceNumbers, model.invoiceNumbersContent));
+        HBox topButtons = new HBox(createTopUniversalButton(model.getReg(), model.getRegContent()),
+                createTopUniversalButton(model.getComments(), model.getCommentsContent()),
+                createTopUniversalButton(model.getInvoiceNumbers(), model.getInvoiceNumbersContent()));
         topButtons.setSpacing(10);
         topButtons.setPadding(new Insets(10));
         topButtons.setAlignment(Pos.BASELINE_CENTER);
@@ -51,7 +51,7 @@ class ViewBuilder implements Builder<Region> {
     private Node createPromptLabel() {
         Label promptLabel = new Label("");
 //        promptLabel.getStyleClass().add("prompt-label");
-        promptLabel.textProperty().bind(model.promptLabelText);
+        promptLabel.textProperty().bind(model.getPromptLabelTextProperty());
         return promptLabel;
     }
 
@@ -64,7 +64,7 @@ class ViewBuilder implements Builder<Region> {
 
     private Node createInputField() {
         TextField inputFieldLabel = new TextField("");
-        inputFieldLabel.textProperty().bindBidirectional(model.inputData);
+        inputFieldLabel.textProperty().bindBidirectional(model.getInputDataProperty());
         return inputFieldLabel;
     }
 

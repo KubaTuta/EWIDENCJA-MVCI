@@ -10,6 +10,8 @@ public class Controller {
         Model model = new Model();
         viewBuilder = new ViewBuilder(model);
         interactor = new Interactor(model);
+
+        model.setCars(interactor.loadCarsFromCsv());
     }
 
     public Region getView() {

@@ -84,5 +84,8 @@ public class Car {
     public String getDateOfInvoiceIssue() {
         return dateOfInvoiceIssue;
     }
+    public String getComment() {
+        return comment;
+    }
 }
 

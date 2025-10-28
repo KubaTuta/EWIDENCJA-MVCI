@@ -42,8 +42,8 @@ public class Interactor {
         switch (model.getActiveButton()) {
             case REG:
                 return showCarOfInterest(cars, input);
-//            case comments:
-//                return CarMethods.showDailyComments(cars, input);
+            case COMMENTS:
+                return showDailyComments(cars, input);
             case INVOICES:
                 return showDailyInvoiceNumbers(cars, input);
             default:
@@ -65,25 +65,27 @@ public class Interactor {
         return carOfInterest;
     }
 
-//    public static String showDailyComments(List<Car> cars, String date) {
-//        StringBuilder sb = new StringBuilder();
-//        for (Car car : cars) {
-//            if (car.dateOfInvoiceIssue.equals(date) && !car.comment.isEmpty()) {
-//                sb.append(car.regNumber + ": " + car.comment).append("\n");
-//            }
-//        }
-//        return sb.toString();
-//    }
+    public static List<Node> showDailyComments(List<Car> cars, String date) {
+        List<Node> dailyComments = new ArrayList<>();
+        Text dailyCommentsText = new Text("");
+        for (Car car : cars) {
+            if (car.getDateOfInvoiceIssue().equals(date) && !car.getComment().isEmpty()) {
+                dailyCommentsText.setText(dailyCommentsText.getText() + car.getRegNumber() + ": " + car.getComment() + "\n");
+            }
+        }
+        dailyComments.add(dailyCommentsText);
+        return dailyComments;
+    }
 
     private static List<Node> showDailyInvoiceNumbers(List<Car> cars, String date) {
         List<Node> listOfInvoiceNumbers = new ArrayList<>();
-        Text sb = new Text("Numery faktur z dnia " + date + ":\n");
+        Text listOfInvoiceNumbersText = new Text("Numery faktur z dnia " + date + ":\n");
         for (Car car : cars) {
             if (car.getDateOfInvoiceIssue().equals(date)) {
-                sb.setText(sb.getText() + car.getInvoiceNumber() + ",");
+                listOfInvoiceNumbersText.setText(listOfInvoiceNumbersText.getText() + car.getInvoiceNumber() + ",");
             }
         }
-        listOfInvoiceNumbers.add(sb);
+        listOfInvoiceNumbers.add(listOfInvoiceNumbersText);
         return listOfInvoiceNumbers;
     }
 

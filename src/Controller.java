@@ -10,7 +10,7 @@ public class Controller {
         Model model = new Model();
         interactor = new Interactor(model);
         viewBuilder = new ViewBuilder(model,
-                (title, label) -> interactor.setLabel(title, label),
+                (TopButtonType topButtonType) -> interactor.setLabel(topButtonType),
                 () -> interactor.confirmUserInput(),
                 (textFlow)->interactor.showOutput(textFlow));
 

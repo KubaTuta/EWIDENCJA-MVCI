@@ -2,33 +2,33 @@ public class Car {
     private static int counter = 0;
     public final int index;
     private final String regNumber;
-    public final String vin;
-    public final String status;
-    public final String userCompanyName;
-    public final String dateOfCollection;
-    public final String brand;
-    public final String model;
-    public final String bodyType;
-    public final String version;
-    public final String fuelType;
-    public final String colour;
-    public final String mileage;
-    public final String productionYear;
-    public final String firstRegDate;
-    public final String comment;
-    public final String auctionPricePlusFee;
-    public final String auctionFee;
-    public final String salesPrice;
-    public final String salesChannel;
-    public final String buyersData;
-    public final String vatID;
-    public final String dateOfProforma;
-    public final String dateOfPayment;
-    public final String nac;
-    public final String invoiceNumber;
-    public final String dateOfInvoiceIssue;
-    public final String insurer;
-    public final String expirationDate;
+    private final String vin;
+    private final String status;
+    private final String userCompanyName;
+    private final String dateOfCollection;
+    private final String brand;
+    private final String model;
+    private final String bodyType;
+    private final String version;
+    private final String fuelType;
+    private final String colour;
+    private final String mileage;
+    private final String productionYear;
+    private final String firstRegDate;
+    private final String comment;
+    private final String auctionPricePlusFee;
+    private final String auctionFee;
+    private final String salesPrice;
+    private final String salesChannel;
+    private final String buyersData;
+    private final String vatID;
+    private final String dateOfProforma;
+    private final String dateOfPayment;
+    private final String nac;
+    private final String invoiceNumber;
+    private final String dateOfInvoiceIssue;
+    private final String insurer;
+    private final String expirationDate;
 
     public Car(String[] carAttributes) {
         this.index = counter++;
@@ -70,4 +70,19 @@ public class Car {
         };
         return String.join(" / ", allAttributes);
     }
+
+    public String getRegNumber() {
+        return regNumber;
+    }
+
+    public String getVin() {
+        return vin;
+    }
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+    public String getDateOfInvoiceIssue() {
+        return dateOfInvoiceIssue;
+    }
 }
+

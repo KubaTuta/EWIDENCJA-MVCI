@@ -2,6 +2,7 @@ import javafx.scene.Node;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import utils.CsvReader;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class Interactor {
     private Model model;
     private static final String FILE_PATH = "C:/JAVA/EWIDENCJA MVCI/src/resources/csv/csv.csv";
 
-    public Interactor(Model model)  {
+    public Interactor(Model model) {
         this.model = model;
     }
 
@@ -39,22 +40,47 @@ public class Interactor {
 
     private List<Node> switchBetweenMethods(List<Car> cars, String input) {
         switch (model.getActiveButton()) {
-//            case reg:
-//                return CarMethods.showCarOfInterest(cars, input);
+            case REG:
+                return showCarOfInterest(cars, input);
 //            case comments:
 //                return CarMethods.showDailyComments(cars, input);
-            case "Faktury danego dnia":
+            case INVOICES:
                 return showDailyInvoiceNumbers(cars, input);
             default:
                 return new ArrayList<>();
         }
     }
+
+    public static List<Node> showCarOfInterest(List<Car> cars, String reg) {
+        List<Node> carOfInterest = new ArrayList<>();
+        Text foundedCar = new Text(" Nie znaleziono takiego pojazdu");
+        for (Car car : cars) {
+            if (car.getRegNumber().equals(reg.toUpperCase().trim()) || car.getVin().equals(reg.toUpperCase().trim())) {
+                foundedCar.setText(car.allAttributeNames());
+                carOfInterest.add(foundedCar);
+                return carOfInterest;
+            }
+        }
+        carOfInterest.add(foundedCar);
+        return carOfInterest;
+    }
+
+//    public static String showDailyComments(List<Car> cars, String date) {
+//        StringBuilder sb = new StringBuilder();
+//        for (Car car : cars) {
+//            if (car.dateOfInvoiceIssue.equals(date) && !car.comment.isEmpty()) {
+//                sb.append(car.regNumber + ": " + car.comment).append("\n");
+//            }
+//        }
+//        return sb.toString();
+//    }
+
     private static List<Node> showDailyInvoiceNumbers(List<Car> cars, String date) {
         List<Node> listOfInvoiceNumbers = new ArrayList<>();
         Text sb = new Text("Numery faktur z dnia " + date + ":\n");
         for (Car car : cars) {
-            if (car.dateOfInvoiceIssue.equals(date)) {
-                sb.setText(sb.getText() + car.invoiceNumber + ",");
+            if (car.getDateOfInvoiceIssue().equals(date)) {
+                sb.setText(sb.getText() + car.getInvoiceNumber() + ",");
             }
         }
         listOfInvoiceNumbers.add(sb);
@@ -62,7 +88,6 @@ public class Interactor {
     }
 
     public void showOutput(TextFlow output) {
-
         output.getChildren().clear();
         output.getChildren().addAll(model.getOutputNodes());
     }

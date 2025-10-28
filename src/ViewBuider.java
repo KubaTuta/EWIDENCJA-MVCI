@@ -18,11 +18,11 @@ import java.util.function.Consumer;
 class ViewBuilder implements Builder<Region> {
 
     private final Model model;
-    private final BiConsumer<String, String> promptLabelHandler;
+    private final Consumer<TopButtonType> promptLabelHandler;
     private final Runnable confirmHandler;
     private final Consumer<TextFlow> outputHandler;
 
-    public ViewBuilder(Model model, BiConsumer<String, String> promptLabelHandler, Runnable confirmHandler, Consumer<TextFlow> outputHandler) {
+    public ViewBuilder(Model model, Consumer<TopButtonType> promptLabelHandler, Runnable confirmHandler, Consumer<TextFlow> outputHandler) {
         this.model = model;
         this.promptLabelHandler = promptLabelHandler;
         this.confirmHandler = confirmHandler;
@@ -37,19 +37,19 @@ class ViewBuilder implements Builder<Region> {
     }
 
     private Node createTopButtons() {
-        HBox topButtons = new HBox(createTopUniversalButton(model.getReg(), model.getRegContent()),
-                createTopUniversalButton(model.getComments(), model.getCommentsContent()),
-                createTopUniversalButton(model.getInvoiceNumbers(), model.getInvoiceNumbersContent()));
+        HBox topButtons = new HBox(createTopUniversalButton(TopButtonType.REG),
+                createTopUniversalButton(TopButtonType.COMMENTS),
+                createTopUniversalButton(TopButtonType.INVOICES));
         topButtons.setSpacing(10);
         topButtons.setPadding(new Insets(10));
         topButtons.setAlignment(Pos.BASELINE_CENTER);
         return topButtons;
     }
 
-    private Node createTopUniversalButton(String title, String labelSetter) {
-        Button button = new Button(title);
+    private Node createTopUniversalButton(TopButtonType topButtonType) {
+        Button button = new Button(topButtonType.getTitle());
         button.getStyleClass().add("top-button");
-        button.setOnAction(event -> promptLabelHandler.accept(title, labelSetter));
+        button.setOnAction(event -> promptLabelHandler.accept(topButtonType));
         return button;
     }
 

@@ -15,20 +15,26 @@
     -fx-font-weight: bold;
     -fx-background-radius: 10px;
     }
+.confirmation-button {
+    -fx-max-height: infinity;
+}
 .prompt-label {
     -fx-text-fill: white;
     -fx-font-size: 15px;
     -fx-font-family: "Genos", sans-serif;
 }
+.input-horizontal-area {
+    -fx-fill-height: true;
+}
 
 .feedback-label {
     -fx-background-color: rgb(0, 150, 94);
-        -fx-control-inner-background: rgb(0, 150, 94);
-        -fx-background-insets: 0;
-        -fx-background-radius: 0;
-        -fx-border-width: 0;
-        -fx-border-color: transparent;
-        -fx-focus-color: transparent;
-        -fx-faint-focus-color: transparent;
-        -fx-padding: 0;
+    -fx-control-inner-background: rgb(0, 150, 94);
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-padding: 0;
 }

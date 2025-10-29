@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Interactor {
-    private Model model;
+    private final Model model;
     private static final String FILE_PATH = "C:/JAVA/EWIDENCJA MVCI/src/resources/csv/csv.csv";
 
     public Interactor(Model model) {

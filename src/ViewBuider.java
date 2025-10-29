@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.util.Builder;
 
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 class ViewBuilder implements Builder<Region> {
@@ -31,19 +30,20 @@ class ViewBuilder implements Builder<Region> {
 
     @Override
     public Region build() {
-        VBox wholeView = new VBox(createTopButtons(), createPromptLabel(), createInputHorizontalArea(), createFeedbackLabel());
-        wholeView.getStylesheets().add(this.getClass().getResource("/resources/css/styled.css").toExternalForm());
-        return wholeView;
+        VBox layout = new VBox(createTopButtons(), createPromptLabel(), createInputHorizontalArea(), createFeedbackLabel());
+        layout.setSpacing(10);
+        layout.getStylesheets().add(this.getClass().getResource("/resources/css/styled.css").toExternalForm());
+        return layout;
     }
 
     private Node createTopButtons() {
-        HBox topButtons = new HBox(createTopUniversalButton(TopButtonType.REG),
+        HBox topButtonsBox = new HBox(createTopUniversalButton(TopButtonType.REG),
                 createTopUniversalButton(TopButtonType.COMMENTS),
                 createTopUniversalButton(TopButtonType.INVOICES));
-        topButtons.setSpacing(10);
-        topButtons.setPadding(new Insets(10));
-        topButtons.setAlignment(Pos.BASELINE_CENTER);
-        return topButtons;
+        topButtonsBox.setSpacing(10);
+        topButtonsBox.setPadding(new Insets(10));
+        topButtonsBox.setAlignment(Pos.BASELINE_CENTER);
+        return topButtonsBox;
     }
 
     private Node createTopUniversalButton(TopButtonType topButtonType) {
@@ -55,9 +55,11 @@ class ViewBuilder implements Builder<Region> {
 
     private Node createPromptLabel() {
         Label promptLabel = new Label("");
+        VBox promptLabelBox = new VBox(promptLabel);
         promptLabel.getStyleClass().add("prompt-label");
+        promptLabelBox.setAlignment(Pos.CENTER);
         promptLabel.textProperty().bind(model.getPromptLabelTextProperty());
-        return promptLabel;
+        return promptLabelBox;
     }
 
     private Node createInputHorizontalArea() {

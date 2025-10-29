@@ -1,7 +1,8 @@
 public enum TopButtonType {
         REG("Nr rej. / VIN", "Wpisz nr rej. lub VIN, aby wyświetlić parametry pojazdu"),
         COMMENTS("Komentarze", "Wpisz datę, aby wyświetlić pojazdy z komentarzami z tego dnia (dd.mm.rrrr)"),
-        INVOICES("Faktury danego dnia", "Wpisz datę, aby wyświetlić listę faktur z tego dnia (dd.mm.rrrr)");
+        INVOICES("Faktury danego dnia", "Wpisz datę, aby wyświetlić listę faktur z tego dnia (dd.mm.rrrr)"),
+        COMBO("Combo", "Wklej tekst");
 
         private final String title;
         private final String label;

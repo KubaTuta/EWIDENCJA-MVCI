@@ -37,9 +37,12 @@ class ViewBuilder implements Builder<Region> {
     }
 
     private Node createTopButtons() {
-        HBox topButtonsBox = new HBox(createTopUniversalButton(TopButtonType.REG),
-                createTopUniversalButton(TopButtonType.COMMENTS),
-                createTopUniversalButton(TopButtonType.INVOICES));
+        HBox topButtonsBox = new HBox();
+
+        for (TopButtonType type : TopButtonType.values()) {
+            topButtonsBox.getChildren().add(createTopUniversalButton(type)) ;
+        }
+
         topButtonsBox.setSpacing(10);
         topButtonsBox.setPadding(new Insets(10));
         topButtonsBox.setAlignment(Pos.BASELINE_CENTER);

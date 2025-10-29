@@ -4,7 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -64,13 +64,15 @@ class ViewBuilder implements Builder<Region> {
 
     private Node createInputHorizontalArea() {
         HBox hBox = new HBox(createInputField(), createConfirmationButton());
+        hBox.getStyleClass().add("input-horizontal-area");
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(10);
         return hBox;
     }
 
     private Node createInputField() {
-        TextField inputFieldLabel = new TextField("");
+        TextArea inputFieldLabel = new TextArea("");
+        inputFieldLabel.getStyleClass().add("input-field");
         inputFieldLabel.textProperty().bindBidirectional(model.getInputDataProperty());
         return inputFieldLabel;
     }

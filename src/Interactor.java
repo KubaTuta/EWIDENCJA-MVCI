@@ -53,10 +53,8 @@ public class Interactor {
         }
     }
 
-
-
     public static List<Node> showCarOfInterest(List<Car> cars, String reg) {
-            List<Node> carOfInterest = new ArrayList<>();
+        List<Node> carOfInterest = new ArrayList<>();
         Text foundedCar = new Text(" Nie znaleziono takiego pojazdu");
         for (Car car : cars) {
             if (car.getRegNumber().equals(reg.toUpperCase().trim()) || car.getVin().equals(reg.toUpperCase().trim())) {
@@ -92,18 +90,18 @@ public class Interactor {
         listOfInvoiceNumbers.add(listOfInvoiceNumbersText);
         return listOfInvoiceNumbers;
     }
+
     public static List<Node> comboReader(List<Car> cars, String longString) {
         List<Node> carOfInterest = new ArrayList<>();
         Text notFoundedCars = new Text(" Nie znaleziono żadnych pojazdów");
         boolean foundedCars = false;
 
-        String cleanedLongString = longString.replaceAll("[^a-zA-Z0-9\\s]", " ");
-        String[] parts = cleanedLongString.trim().toUpperCase().split("\\s+");
+        String[] parts = Hooks.stringSorter(longString);
 
         for (String part : parts) {
             for (Car car : cars) {
                 if (car.getRegNumber().equals(part) || car.getVin().equals(part)) {
-                    carOfInterest.add(new Text(car.getRegNumber() + "\n") );
+                    carOfInterest.add(new Text(car.getRegNumber() + "\n"));
                     foundedCars = true;
                 }
             }
@@ -115,6 +113,7 @@ public class Interactor {
         }
         return carOfInterest;
     }
+
     public void showOutput(TextFlow output) {
         output.getChildren().clear();
         output.getChildren().addAll(model.getOutputNodes());

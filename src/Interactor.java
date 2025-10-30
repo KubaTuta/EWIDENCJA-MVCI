@@ -97,7 +97,7 @@ public class Interactor {
         Text notFoundedCars = new Text(" Nie znaleziono żadnych pojazdów");
         boolean foundedCars = false;
 
-        String cleanedLongString = longString.replaceAll("[^a-zA-Z0-9\\s]", "");
+        String cleanedLongString = longString.replaceAll("[^a-zA-Z0-9\\s]", " ");
         String[] parts = cleanedLongString.trim().toUpperCase().split("\\s+");
 
         for (String part : parts) {

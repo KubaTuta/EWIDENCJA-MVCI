@@ -19,9 +19,9 @@ class ViewBuilder implements Builder<Region> {
     private final Model model;
     private final Consumer<TopButtonType> promptLabelHandler;
     private final Runnable confirmHandler;
-    private final Consumer<TextFlow> outputHandler;
+    private final Consumer<VBox> outputHandler;
 
-    public ViewBuilder(Model model, Consumer<TopButtonType> promptLabelHandler, Runnable confirmHandler, Consumer<TextFlow> outputHandler) {
+    public ViewBuilder(Model model, Consumer<TopButtonType> promptLabelHandler, Runnable confirmHandler, Consumer<VBox> outputHandler) {
         this.model = model;
         this.promptLabelHandler = promptLabelHandler;
         this.confirmHandler = confirmHandler;
@@ -91,7 +91,7 @@ class ViewBuilder implements Builder<Region> {
     }
 
     private Node createFeedbackLabel() {
-        TextFlow feedbackTextFlow = new TextFlow();
+        VBox feedbackTextFlow = new VBox();
         feedbackTextFlow.setPadding(new Insets(10));
         feedbackTextFlow.getStyleClass().add("feedback-label");
         VBox.setVgrow(feedbackTextFlow, Priority.ALWAYS);

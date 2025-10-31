@@ -114,7 +114,7 @@ public class Interactor {
         return carOfInterest;
     }
 
-    public void showOutput(TextFlow output) {
+    public void showOutput(VBox output) {
         output.getChildren().clear();
         output.getChildren().addAll(model.getOutputNodes());
     }

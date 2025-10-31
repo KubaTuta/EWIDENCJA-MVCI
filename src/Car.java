@@ -85,5 +85,7 @@ public class Car {
         return dateOfInvoiceIssue;
     }
     public String getComment() { return comment; }
+    public String getInsurer() { return insurer; }
+    public String getExpirationDate() { return expirationDate; }
 }
 

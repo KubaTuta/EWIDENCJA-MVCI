@@ -1,6 +1,8 @@
 import javafx.scene.Node;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import utils.CsvReader;
 
 import java.nio.file.Path;
@@ -98,10 +100,18 @@ public class Interactor {
 
         String[] parts = Hooks.stringSorter(longString);
 
+        GridPane gridLayout = new GridPane();
+        int rowIndex = 0;
+
         for (String part : parts) {
             for (Car car : cars) {
                 if (car.getRegNumber().equals(part) || car.getVin().equals(part)) {
-                    carOfInterest.add(new Text(car.getRegNumber() + "\n"));
+                    gridLayout.add(new Text(car.getRegNumber()), 0, rowIndex);
+                    gridLayout.add(new Hyperlink(car.getInvoiceNumber()), 1, rowIndex);
+                    gridLayout.add(new Text(car.getDateOfInvoiceIssue()), 2, rowIndex);
+                    gridLayout.add(new Text(car.getInsurer()), 3, rowIndex);
+                    gridLayout.add(new Text(car.getExpirationDate()), 4, rowIndex);
+                    rowIndex++;
                     foundedCars = true;
                 }
             }
@@ -111,6 +121,7 @@ public class Interactor {
             carOfInterest.add(notFoundedCars);
 
         }
+        carOfInterest.add(gridLayout);
         return carOfInterest;
     }
 

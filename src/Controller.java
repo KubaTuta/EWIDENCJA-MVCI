@@ -17,6 +17,7 @@ public class Controller {
         viewBuilder = new ViewBuilder(model,
                 (TopButtonType topButtonType) -> interactor.setLabel(topButtonType),
                 () -> interactor.confirmUserInput(),
+                interactor::minimize,
                 (textFlow)->interactor.showOutput(textFlow));
 
         model.setCars(interactor.loadCarsFromCsv());

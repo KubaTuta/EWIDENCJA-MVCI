@@ -135,4 +135,8 @@ public class Interactor {
         output.getChildren().clear();
         output.getChildren().addAll(model.getOutputNodes());
     }
+
+    public void minimize() {
+        primaryStage.setIconified(true);
+    }
 }

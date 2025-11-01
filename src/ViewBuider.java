@@ -19,9 +19,10 @@ class ViewBuilder implements Builder<Region> {
     private final Model model;
     private final Consumer<TopButtonType> promptLabelHandler;
     private final Runnable confirmHandler;
+    private final Runnable minimize;
     private final Consumer<VBox> outputHandler;
 
-    public ViewBuilder(Model model, Consumer<TopButtonType> promptLabelHandler, Runnable confirmHandler, Consumer<VBox> outputHandler) {
+    public ViewBuilder(Model model, Consumer<TopButtonType> promptLabelHandler, Runnable confirmHandler, Runnable minimize, Consumer<VBox> outputHandler) {
         this.model = model;
         this.promptLabelHandler = promptLabelHandler;
         this.confirmHandler = confirmHandler;
@@ -97,5 +98,12 @@ class ViewBuilder implements Builder<Region> {
         VBox.setVgrow(feedbackTextFlow, Priority.ALWAYS);
         model.getOutputNodes().addListener((ListChangeListener<Node>) change -> outputHandler.accept(feedbackTextFlow));
         return feedbackTextFlow;
+    }
+
+    private Node createMinizeButton() {
+        Button minizeButton = new Button("Minize");
+        minizeButton.getStyleClass().add("minize-button");
+        minizeButton.setOnAction(event -> minimize.run());
+        return minizeButton;
     }
 }

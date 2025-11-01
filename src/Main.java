@@ -2,15 +2,15 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class Main extends Application {
+
     @Override
-    public void start(Stage primaryStage)  {
-        Scene scene = new Scene(new Controller().getView());
+    public void start(Stage primaryStage) {
+        Scene scene = new Scene(new Controller(primaryStage).getView());
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.setTitle("EWIDENCJA Remarketing");
         primaryStage.show();
+        primaryStage.setAlwaysOnTop(true);
     }
 }

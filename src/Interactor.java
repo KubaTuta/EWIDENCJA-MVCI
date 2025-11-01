@@ -3,6 +3,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import utils.CsvReader;
 
 import java.nio.file.Path;
@@ -13,9 +14,14 @@ import java.util.List;
 public class Interactor {
     private final Model model;
     private static final String FILE_PATH = "C:/JAVA/EWIDENCJA MVCI/src/resources/csv/csv.csv";
+    private Stage primaryStage;
 
     public Interactor(Model model) {
         this.model = model;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 
     public List<Car> loadCarsFromCsv() {

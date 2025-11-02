@@ -78,14 +78,66 @@ public class Car {
     public String getVin() {
         return vin;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getUserCompanyName() {
+        return userCompanyName;
+    }
+
+    public String getDateOfCollection() {
+        return dateOfCollection;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+
+    public String getBodyType() {
+        return bodyType;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public String getMileage() {
+        return mileage;
+    }
+
+    public String getProductionYear() {
+        return productionYear;
+    }
+
+    public String getFirstRegDate() {
+        return firstRegDate;
+    }
+
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
+
     public String getDateOfInvoiceIssue() {
         return dateOfInvoiceIssue;
     }
-    public String getComment() { return comment; }
-    public String getInsurer() { return insurer; }
-    public String getExpirationDate() { return expirationDate; }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getInsurer() {
+        return insurer;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
 }
 

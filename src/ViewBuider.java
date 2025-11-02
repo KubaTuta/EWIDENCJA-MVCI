@@ -110,10 +110,14 @@ class ViewBuilder implements Builder<Region> {
         return centerWrapper;
     }
 
-    private Node createMinizeButton() {
-        Button minizeButton = new Button("Minize");
-        minizeButton.getStyleClass().add("minize-button");
-        minizeButton.setOnAction(event -> minimize.run());
-        return minizeButton;
+
+
+    private Node createMinimizeButton() {
+        Button minimizeButton = new Button("Minimize");
+        HBox rightWrapper = new HBox(minimizeButton);
+        rightWrapper.getStyleClass().add("right-wrapper");
+        minimizeButton.getStyleClass().add("minimize-button");
+        minimizeButton.setOnAction(event -> minimize.run());
+        return rightWrapper;
     }
 }

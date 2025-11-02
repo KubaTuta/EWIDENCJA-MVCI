@@ -143,4 +143,12 @@ public class Interactor {
     public void minimize() {
         primaryStage.setIconified(true);
     }
+
+    public List<Node> showReg() {
+        List<Node> regNumber = new ArrayList<>();
+
+
+        return regNumber;
+
+    }
 }

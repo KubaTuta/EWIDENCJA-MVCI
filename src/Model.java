@@ -10,10 +10,10 @@ import java.util.List;
 
 public class Model {
     private final ObservableList<Car> cars = FXCollections.observableArrayList();
-    private final StringProperty promptLabelText = new SimpleStringProperty("");
+    private final StringProperty promptLabelText = new SimpleStringProperty("Wklej tekst");
     private final StringProperty inputData = new SimpleStringProperty("");
     private final ListProperty<Node> outputNodes = new SimpleListProperty<>(FXCollections.observableArrayList());
-    private TopButtonType activeButton;
+    private TopButtonType activeButton = TopButtonType.COMBO;
 
     public ObservableList<Car> getCars() {
         return cars;

@@ -18,7 +18,8 @@ public class Controller {
                 interactor::setLabel,
                 interactor::confirmUserInput,
                 interactor::minimize,
-                interactor::showOutput);
+                interactor::showOutput,
+                interactor::showRegOutput);
 
         model.setCars(interactor.loadCarsFromCsv());
     }

@@ -5,13 +5,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.TextFlow;
+import javafx.scene.layout.*;
 import javafx.util.Builder;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 class ViewBuilder implements Builder<Region> {
@@ -21,12 +18,15 @@ class ViewBuilder implements Builder<Region> {
     private final Runnable confirmHandler;
     private final Runnable minimize;
     private final Consumer<FlowPane> outputHandler;
+    private final Consumer<FlowPane> outputRegHandler;
 
-    public ViewBuilder(Model model, Consumer<TopButtonType> promptLabelHandler, Runnable confirmHandler, Runnable minimize, Consumer<VBox> outputHandler) {
+    public ViewBuilder(Model model, Consumer<TopButtonType> promptLabelHandler, Runnable confirmHandler, Runnable minimize, Consumer<FlowPane> outputHandler, Consumer<FlowPane> outputRegHandler) {
         this.model = model;
         this.promptLabelHandler = promptLabelHandler;
         this.confirmHandler = confirmHandler;
+        this.minimize = minimize;
         this.outputHandler = outputHandler;
+        this.outputRegHandler = outputRegHandler;
     }
 
     @Override
@@ -101,6 +101,13 @@ class ViewBuilder implements Builder<Region> {
         return wrapper;
     }
 
+    private Node createLeftOutput() {
+        FlowPane leftSideWrapper = new FlowPane();
+        leftSideWrapper.getStyleClass().add("left-wrapper");
+        model.getOutputReg().addListener((ListChangeListener<Node>) change -> outputRegHandler.accept(leftSideWrapper));
+        return leftSideWrapper;
+    }
+
     private Node createFeedbackLabel() {
         FlowPane centerWrapper = new FlowPane();
         centerWrapper.setPadding(new Insets(10));
@@ -109,8 +116,6 @@ class ViewBuilder implements Builder<Region> {
         model.getOutputNodes().addListener((ListChangeListener<Node>) change -> outputHandler.accept(centerWrapper));
         return centerWrapper;
     }
-
-
 
     private Node createMinimizeButton() {
         Button minimizeButton = new Button("Minimize");

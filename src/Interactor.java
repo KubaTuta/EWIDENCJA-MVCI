@@ -47,18 +47,21 @@ public class Interactor {
     public void confirmUserInput() {
         List<Node> input = switchBetweenMethods(model.getCars(), model.getInputData());
         model.setOutputNodes(input);
+
+        List<Node> regList = showReg(model.getCars(), model.getInputData());
+        model.setOutputReg(regList);
     }
 
     private List<Node> switchBetweenMethods(List<Car> cars, String input) {
         switch (model.getActiveButton()) {
+            case COMBO:
+                return comboReader(cars, input);
             case REG:
-                return showCarOfInterest(cars, input);
+                return showCarInfo(cars, input);
             case COMMENTS:
                 return showDailyComments(cars, input);
             case INVOICES:
                 return showDailyInvoiceNumbers(cars, input);
-            case COMBO:
-                return comboReader(cars, input);
             default:
                 return new ArrayList<>();
         }
@@ -148,55 +151,24 @@ public class Interactor {
         return listOfInvoiceNumbers;
     }
 
-    public static List<Node> comboReader(List<Car> cars, String longString) {
-        List<Node> carOfInterest = new ArrayList<>();
-        Text notFoundedCars = new Text(" Nie znaleziono żadnych pojazdów");
-        boolean foundedCars = false;
-
-        String[] parts = Hooks.stringSorter(longString);
-
-        GridPane gridLayout = new GridPane();
-        gridLayout.getStyleClass().add("gridLayout");
-        int rowIndex = 0;
-
-        for (String part : parts) {
-            for (Car car : cars) {
-                if (car.getRegNumber().equals(part) || car.getVin().equals(part)) {
-                    Hyperlink fvNumber = new Hyperlink(car.getInvoiceNumber());
-                    fvNumber.setOnAction(event -> minimize());
-                    gridLayout.add(new Label(car.getRegNumber()), 0, rowIndex);
-                    gridLayout.add(fvNumber, 1, rowIndex);
-                    gridLayout.add(new Label(car.getDateOfInvoiceIssue()), 2, rowIndex);
-                    gridLayout.add(new Label(car.getInsurer()), 3, rowIndex);
-                    gridLayout.add(new Label(car.getExpirationDate()), 4, rowIndex);
-                    rowIndex++;
-                    foundedCars = true;
-                }
-            }
-        }
-
-        if (!foundedCars) {
-            carOfInterest.add(notFoundedCars);
-
-        }
-        carOfInterest.add(gridLayout);
-        return carOfInterest;
-    }
-
     public void showOutput(FlowPane output) {
         output.getChildren().clear();
         output.getChildren().addAll(model.getOutputNodes());
+    }
+
+    public void showRegOutput(FlowPane output) {
+        output.getChildren().clear();
+        output.getChildren().addAll(model.getOutputReg());
     }
 
     public void minimize() {
         primaryStage.setIconified(true);
     }
 
-    public List<Node> showReg() {
-        List<Node> regNumber = new ArrayList<>();
-
-
-        return regNumber;
-
+    public List<Node> showReg(List<Car> cars, String longString) {
+        return carGrid(cars, longString, (car, grid) -> {
+            int row = grid.getChildren().size() / 1;
+            grid.add(new Label(car.getRegNumber()), 1, row);
+        });
     }
 }

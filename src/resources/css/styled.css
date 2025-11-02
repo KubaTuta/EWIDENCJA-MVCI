@@ -4,27 +4,35 @@
     -fx-font-size: 14px;
     -fx-text-fill: white;
     }
+
 @font-face {
      font-family: "Genos, sans-serif";
      src: url("/resources/font/Genos-Regular.ttf");
    }
-.top-button, .confirmation-button {
-    -fx-background-color: black;
-    -fx-text-fill: white;
-    -fx-font-family: "Genos", sans-serif;
-    -fx-font-weight: bold;
-    -fx-background-radius: 10px;
-    }
-.confirmation-button {
-    -fx-max-height: infinity;
+
+.left-wrapper {
+    -fx-pref-width: 200px;
+    -fx-min-width: 100px;
+    -fx-max-width: 200px;
 }
+
+.center-wrapper {
+    -fx-wrap-text: true;
+    -fx-text-fill: white;
+}
+
+.right-wrapper {
+    -fx-pref-width: 80px;
+}
+
+.input-horizontal-area {
+    -fx-fill-height: true;
+}
+
 .prompt-label {
     -fx-text-fill: white;
     -fx-font-size: 15px;
     -fx-font-family: "Genos", sans-serif;
-}
-.input-horizontal-area {
-    -fx-fill-height: true;
 }
 
 .feedback-label {
@@ -37,4 +45,28 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-padding: 0;
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+}
+
+.top-button, .confirmation-button, .minimize-button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-family: "Genos", sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    }
+
+.confirmation-button {
+    -fx-max-height: infinity;
+}
+
+.minimize-button {
+    -fx-pref-height: 400px;
+    -fx-pref-width: 80px;
+    -fx-min-width: 80px;
+}
+
+.gridLayout {
+    -fx-text-fill: white;
 }

@@ -13,6 +13,7 @@ public class Model {
     private final StringProperty promptLabelText = new SimpleStringProperty("Wklej tekst");
     private final StringProperty inputData = new SimpleStringProperty("");
     private final ListProperty<Node> outputNodes = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final ListProperty<Node> outputReg = new SimpleListProperty<>(FXCollections.observableArrayList());
     private TopButtonType activeButton = TopButtonType.COMBO;
 
     public ObservableList<Car> getCars() {
@@ -55,7 +56,15 @@ public class Model {
         return outputNodes.get();
     }
 
+    public ObservableList<Node> getOutputReg() {
+        return outputReg.get();
+    }
+
     public void setOutputNodes(List<Node> newOutputNodes) {
         this.outputNodes.setAll(newOutputNodes);
+    }
+
+    public void setOutputReg(List<Node> newOutputReg) {
+        this.outputReg.setAll(newOutputReg);
     }
 }

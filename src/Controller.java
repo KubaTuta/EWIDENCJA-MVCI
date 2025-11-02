@@ -4,9 +4,9 @@ import javafx.util.Builder;
 
 public class Controller {
 
-    private Builder<Region> viewBuilder;
-    private Interactor interactor;
-    private Stage primaryStage;
+    private final Builder<Region> viewBuilder;
+    private final Interactor interactor;
+    private final Stage primaryStage;
 
     public Controller(Stage primaryStage) {
         this.primaryStage = primaryStage;

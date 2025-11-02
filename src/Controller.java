@@ -15,10 +15,10 @@ public class Controller {
         interactor = new Interactor(model);
         interactor.setPrimaryStage(primaryStage);
         viewBuilder = new ViewBuilder(model,
-                (TopButtonType topButtonType) -> interactor.setLabel(topButtonType),
-                () -> interactor.confirmUserInput(),
+                interactor::setLabel,
+                interactor::confirmUserInput,
                 interactor::minimize,
-                (textFlow)->interactor.showOutput(textFlow));
+                interactor::showOutput);
 
         model.setCars(interactor.loadCarsFromCsv());
     }

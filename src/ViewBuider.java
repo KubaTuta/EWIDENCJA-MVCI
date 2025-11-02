@@ -31,17 +31,27 @@ class ViewBuilder implements Builder<Region> {
 
     @Override
     public Region build() {
-        VBox layout = new VBox(createTopButtons(), createPromptLabel(), createInputHorizontalArea(), createFeedbackLabel());
-        layout.setSpacing(10);
-        layout.getStylesheets().add(this.getClass().getResource("/resources/css/styled.css").toExternalForm());
-        return layout;
+        BorderPane borderPane = new BorderPane();
+        borderPane.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("/resources/css/styled.css")).toExternalForm());
+        borderPane.setTop(createTopLayout());
+        borderPane.setLeft(createLeftOutput());
+        borderPane.setCenter(createFeedbackLabel());
+        borderPane.setRight(createMinimizeButton());
+//        layout.setSpacing(10);
+        return borderPane;
+    }
+
+    private Node createTopLayout() {
+        VBox topWrapper = new VBox(createTopButtons(), createPromptLabel(), createInputHorizontalArea());
+        topWrapper.getStyleClass().add("top-wrapper");
+        return topWrapper;
     }
 
     private Node createTopButtons() {
         HBox topButtonsBox = new HBox();
 
         for (TopButtonType type : TopButtonType.values()) {
-            topButtonsBox.getChildren().add(createTopUniversalButton(type)) ;
+            topButtonsBox.getChildren().add(createTopUniversalButton(type));
         }
 
         topButtonsBox.setSpacing(10);
@@ -59,11 +69,11 @@ class ViewBuilder implements Builder<Region> {
 
     private Node createPromptLabel() {
         Label promptLabel = new Label("");
-        VBox promptLabelBox = new VBox(promptLabel);
+        VBox wrapper = new VBox(promptLabel);
         promptLabel.getStyleClass().add("prompt-label");
-        promptLabelBox.setAlignment(Pos.CENTER);
+        wrapper.setAlignment(Pos.CENTER);
         promptLabel.textProperty().bind(model.getPromptLabelTextProperty());
-        return promptLabelBox;
+        return wrapper;
     }
 
     private Node createInputHorizontalArea() {

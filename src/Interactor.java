@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class Interactor {
     private final Model model;
@@ -62,18 +63,64 @@ public class Interactor {
         }
     }
 
-    public static List<Node> showCarOfInterest(List<Car> cars, String reg) {
+    private List<Node> carGrid(List<Car> cars, String longString, BiConsumer<Car, GridPane> rowBuilder) {
         List<Node> carOfInterest = new ArrayList<>();
-        Text foundedCar = new Text(" Nie znaleziono takiego pojazdu");
-        for (Car car : cars) {
-            if (car.getRegNumber().equals(reg.toUpperCase().trim()) || car.getVin().equals(reg.toUpperCase().trim())) {
-                foundedCar.setText(car.allAttributeNames());
-                carOfInterest.add(foundedCar);
-                return carOfInterest;
+        Text notFoundedCars = new Text(" Nie znaleziono takiego pojazdu");
+        boolean foundedCars = false;
+
+        String[] parts = Hooks.stringSorter(longString);
+        GridPane gridLayout = new GridPane();
+        int[] rowIndex = {0};
+
+        for (String part : parts) {
+            for (Car car : cars) {
+                if (car.getRegNumber().equals(part) || car.getVin().equals(part)) {
+                    rowBuilder.accept(car, gridLayout);
+                    rowIndex[0]++;
+                    foundedCars = true;
+                }
             }
         }
-        carOfInterest.add(foundedCar);
+        if (!foundedCars) {
+            carOfInterest.add(notFoundedCars);
+
+        }
+
+        carOfInterest.add(gridLayout);
         return carOfInterest;
+    }
+
+    public List<Node> comboReader(List<Car> cars, String input) {
+        return carGrid(cars, input, (car, grid) -> {
+            int row = grid.getChildren().size() / 5;
+
+            Hyperlink fvNumber = new Hyperlink(car.getInvoiceNumber());
+            fvNumber.setOnAction(event -> minimize());
+
+            grid.add(new Label(car.getRegNumber()), 0, row);
+            grid.add(fvNumber, 1, row);
+            grid.add(new Label(car.getDateOfInvoiceIssue()), 2, row);
+            grid.add(new Label(car.getInsurer()), 3, row);
+            grid.add(new Label(car.getExpirationDate()), 4, row);
+        });
+    }
+
+    public List<Node> showCarInfo(List<Car> cars, String longString) {
+        return carGrid(cars, longString, (car, grid) -> {
+            int row = grid.getChildren().size() / 11;
+
+            grid.add(new Label(car.getVin()), 1, row);
+            grid.add(new Label(car.getUserCompanyName()), 2, row);
+            grid.add(new Label(car.getDateOfCollection()), 3, row);
+            grid.add(new Label(car.getBrand()), 4, row);
+            grid.add(new Label(car.getModel()), 5, row);
+            grid.add(new Label(car.getBodyType()), 6, row);
+            grid.add(new Label(car.getFuelType()), 7, row);
+            grid.add(new Label(car.getModel()), 8, row);
+            grid.add(new Label(car.getMileage()), 9, row);
+            grid.add(new Label(car.getProductionYear()), 10, row);
+            grid.add(new Label(car.getFirstRegDate()), 11, row);
+        });
     }
 
     public static List<Node> showDailyComments(List<Car> cars, String date) {

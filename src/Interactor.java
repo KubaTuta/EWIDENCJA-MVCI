@@ -1,7 +1,8 @@
 import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import utils.CsvReader;
@@ -107,16 +108,19 @@ public class Interactor {
         String[] parts = Hooks.stringSorter(longString);
 
         GridPane gridLayout = new GridPane();
+        gridLayout.getStyleClass().add("gridLayout");
         int rowIndex = 0;
 
         for (String part : parts) {
             for (Car car : cars) {
                 if (car.getRegNumber().equals(part) || car.getVin().equals(part)) {
-                    gridLayout.add(new Text(car.getRegNumber()), 0, rowIndex);
-                    gridLayout.add(new Hyperlink(car.getInvoiceNumber()), 1, rowIndex);
-                    gridLayout.add(new Text(car.getDateOfInvoiceIssue()), 2, rowIndex);
-                    gridLayout.add(new Text(car.getInsurer()), 3, rowIndex);
-                    gridLayout.add(new Text(car.getExpirationDate()), 4, rowIndex);
+                    Hyperlink fvNumber = new Hyperlink(car.getInvoiceNumber());
+                    fvNumber.setOnAction(event -> minimize());
+                    gridLayout.add(new Label(car.getRegNumber()), 0, rowIndex);
+                    gridLayout.add(fvNumber, 1, rowIndex);
+                    gridLayout.add(new Label(car.getDateOfInvoiceIssue()), 2, rowIndex);
+                    gridLayout.add(new Label(car.getInsurer()), 3, rowIndex);
+                    gridLayout.add(new Label(car.getExpirationDate()), 4, rowIndex);
                     rowIndex++;
                     foundedCars = true;
                 }
@@ -131,7 +135,7 @@ public class Interactor {
         return carOfInterest;
     }
 
-    public void showOutput(VBox output) {
+    public void showOutput(FlowPane output) {
         output.getChildren().clear();
         output.getChildren().addAll(model.getOutputNodes());
     }

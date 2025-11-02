@@ -20,7 +20,7 @@ class ViewBuilder implements Builder<Region> {
     private final Consumer<TopButtonType> promptLabelHandler;
     private final Runnable confirmHandler;
     private final Runnable minimize;
-    private final Consumer<VBox> outputHandler;
+    private final Consumer<FlowPane> outputHandler;
 
     public ViewBuilder(Model model, Consumer<TopButtonType> promptLabelHandler, Runnable confirmHandler, Runnable minimize, Consumer<VBox> outputHandler) {
         this.model = model;
@@ -92,12 +92,12 @@ class ViewBuilder implements Builder<Region> {
     }
 
     private Node createFeedbackLabel() {
-        VBox feedbackTextFlow = new VBox();
-        feedbackTextFlow.setPadding(new Insets(10));
-        feedbackTextFlow.getStyleClass().add("feedback-label");
-        VBox.setVgrow(feedbackTextFlow, Priority.ALWAYS);
-        model.getOutputNodes().addListener((ListChangeListener<Node>) change -> outputHandler.accept(feedbackTextFlow));
-        return feedbackTextFlow;
+        FlowPane centerWrapper = new FlowPane();
+        centerWrapper.setPadding(new Insets(10));
+        centerWrapper.getStyleClass().add("center-wrapper");
+        VBox.setVgrow(centerWrapper, Priority.ALWAYS);
+        model.getOutputNodes().addListener((ListChangeListener<Node>) change -> outputHandler.accept(centerWrapper));
+        return centerWrapper;
     }
 
     private Node createMinizeButton() {

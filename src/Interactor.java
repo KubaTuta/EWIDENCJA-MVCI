@@ -41,6 +41,7 @@ public class Interactor {
     public void setLabel(TopButtonType topButtonType) {
         model.setPromptLabelText(topButtonType.getLabel());
         model.setActiveButton(topButtonType);
+        confirmUserInput();
     }
 
     public void confirmUserInput() {

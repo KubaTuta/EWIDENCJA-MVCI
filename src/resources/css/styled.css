@@ -1,14 +1,12 @@
 .root {
     -fx-background-color: rgb(0, 150, 94);
-    -fx-font-family: "Genos, sans-serif";
-    -fx-font-size: 14px;
+    -fx-font-size: 20px;
     -fx-text-fill: white;
-    }
+}
 
-@font-face {
-     font-family: "Genos, sans-serif";
-     src: url("/resources/font/Genos-Regular.ttf");
-   }
+* {
+    -fx-font-family: "Genos";
+}
 
 .left-wrapper {
     -fx-pref-width: 200px;
@@ -16,23 +14,13 @@
     -fx-max-width: 200px;
 }
 
-.center-wrapper {
-    -fx-wrap-text: true;
-    -fx-text-fill: white;
-}
-
 .right-wrapper {
     -fx-pref-width: 80px;
 }
 
-.input-horizontal-area {
-    -fx-fill-height: true;
-}
-
 .prompt-label {
     -fx-text-fill: white;
-    -fx-font-size: 15px;
-    -fx-font-family: "Genos", sans-serif;
+    -fx-font-size: 20px;
 }
 
 .feedback-label {
@@ -52,8 +40,7 @@
 .top-button, .confirmation-button, .minimize-button {
     -fx-background-color: black;
     -fx-text-fill: white;
-    -fx-font-family: "Genos", sans-serif;
-    -fx-font-weight: bold;
+    -fx-font-weight: bolder;
     -fx-background-radius: 10px;
     }
 
@@ -67,6 +54,10 @@
     -fx-min-width: 80px;
 }
 
-.gridLayout {
+.grid-layout > * {
     -fx-text-fill: white;
+    -fx-font-size: 25px;
+}
+.grid-layout > Label {
+    -fx-padding: 5;
 }

@@ -74,6 +74,7 @@ public class Interactor {
 
         String[] parts = Hooks.stringSorter(longString);
         GridPane gridLayout = new GridPane();
+        gridLayout.getStyleClass().add("grid-layout");
         int[] rowIndex = {0};
 
         for (String part : parts) {
@@ -96,12 +97,11 @@ public class Interactor {
 
     public List<Node> comboReader(List<Car> cars, String input) {
         return carGrid(cars, input, (car, grid) -> {
-            int row = grid.getChildren().size() / 5;
+            int row = grid.getChildren().size() / 4;
 
             Hyperlink fvNumber = new Hyperlink(car.getInvoiceNumber());
             fvNumber.setOnAction(event -> minimize());
 
-            grid.add(new Label(car.getRegNumber()), 0, row);
             grid.add(fvNumber, 1, row);
             grid.add(new Label(car.getDateOfInvoiceIssue()), 2, row);
             grid.add(new Label(car.getInsurer()), 3, row);
@@ -167,7 +167,7 @@ public class Interactor {
 
     public List<Node> showReg(List<Car> cars, String longString) {
         return carGrid(cars, longString, (car, grid) -> {
-            int row = grid.getChildren().size() / 1;
+            int row = grid.getChildren().size();
             grid.add(new Label(car.getRegNumber()), 1, row);
         });
     }

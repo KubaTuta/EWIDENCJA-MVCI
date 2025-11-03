@@ -37,7 +37,6 @@ class ViewBuilder implements Builder<Region> {
         borderPane.setLeft(createLeftOutput());
         borderPane.setCenter(createFeedbackLabel());
         borderPane.setRight(createMinimizeButton());
-//        layout.setSpacing(10);
         return borderPane;
     }
 
@@ -72,6 +71,7 @@ class ViewBuilder implements Builder<Region> {
         VBox wrapper = new VBox(promptLabel);
         promptLabel.getStyleClass().add("prompt-label");
         wrapper.setAlignment(Pos.CENTER);
+        wrapper.setPadding(new Insets(10));
         promptLabel.textProperty().bind(model.getPromptLabelTextProperty());
         return wrapper;
     }
@@ -95,7 +95,6 @@ class ViewBuilder implements Builder<Region> {
         Button confirmationButton = new Button("OK");
         confirmationButton.getStyleClass().add("confirmation-button");
         HBox wrapper = new HBox(confirmationButton);
-        wrapper.setAlignment(Pos.CENTER);
 
         confirmationButton.setOnAction(event -> confirmHandler.run());
         return wrapper;
@@ -103,6 +102,7 @@ class ViewBuilder implements Builder<Region> {
 
     private Node createLeftOutput() {
         FlowPane leftSideWrapper = new FlowPane();
+        leftSideWrapper.setAlignment(Pos.TOP_RIGHT);
         leftSideWrapper.getStyleClass().add("left-wrapper");
         model.getOutputReg().addListener((ListChangeListener<Node>) change -> outputRegHandler.accept(leftSideWrapper));
         return leftSideWrapper;
@@ -110,9 +110,8 @@ class ViewBuilder implements Builder<Region> {
 
     private Node createFeedbackLabel() {
         FlowPane centerWrapper = new FlowPane();
-        centerWrapper.setPadding(new Insets(10));
+        centerWrapper.setAlignment(Pos.TOP_LEFT);
         centerWrapper.getStyleClass().add("center-wrapper");
-        VBox.setVgrow(centerWrapper, Priority.ALWAYS);
         model.getOutputNodes().addListener((ListChangeListener<Node>) change -> outputHandler.accept(centerWrapper));
         return centerWrapper;
     }

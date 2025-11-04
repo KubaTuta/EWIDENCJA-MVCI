@@ -87,6 +87,7 @@ class ViewBuilder implements Builder<Region> {
     private Node createInputField() {
         TextArea inputFieldLabel = new TextArea("");
         inputFieldLabel.getStyleClass().add("input-field");
+        inputFieldLabel.setWrapText(true);
         inputFieldLabel.textProperty().bindBidirectional(model.getInputDataProperty());
         return inputFieldLabel;
     }

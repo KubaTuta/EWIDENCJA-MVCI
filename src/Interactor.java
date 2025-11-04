@@ -5,17 +5,13 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import utils.CsvReader;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public class Interactor {
     private final Model model;
-    private static final String FILE_PATH = "C:/JAVA/EWIDENCJA MVCI/src/resources/csv/csv.csv";
     private Stage primaryStage;
 
     public Interactor(Model model) {
@@ -24,18 +20,6 @@ public class Interactor {
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
-    }
-
-    public List<Car> loadCarsFromCsv() {
-        Path path = Paths.get(FILE_PATH);
-        List<String[]> rows = CsvReader.readCsvFile(path);
-        List<Car> cars = new ArrayList<>();
-
-        for (String[] row : rows) {
-            Car car = new Car(row);
-            cars.add(car);
-        }
-        return cars;
     }
 
     public void setLabel(TopButtonType topButtonType) {

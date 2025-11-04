@@ -6,6 +6,7 @@ public class Controller {
 
     private final Builder<Region> viewBuilder;
     private final Interactor interactor;
+    private final DataService dataService;
     private final Stage primaryStage;
 
     public Controller(Stage primaryStage) {
@@ -14,6 +15,7 @@ public class Controller {
         Model model = new Model();
         interactor = new Interactor(model);
         interactor.setPrimaryStage(primaryStage);
+        dataService = new DataService(model);
         viewBuilder = new ViewBuilder(model,
                 interactor::setLabel,
                 interactor::confirmUserInput,
@@ -21,7 +23,7 @@ public class Controller {
                 interactor::showOutput,
                 interactor::showRegOutput);
 
-        model.setCars(interactor.loadCarsFromCsv());
+        model.setCars(dataService.loadCarsFromCsv());
     }
 
     public Region getView() {

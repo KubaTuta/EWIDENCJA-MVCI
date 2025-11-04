@@ -6,6 +6,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -84,7 +88,13 @@ public class Interactor {
             int row = grid.getChildren().size() / 4;
 
             Hyperlink fvNumber = new Hyperlink(car.getInvoiceNumber());
-            fvNumber.setOnAction(event -> minimize());
+            fvNumber.setOnAction(event -> {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://dynamos.benelux.intra.corp/Archive/MainArchive.aspx?searchModus=2&contractnr=0&calcbasisvolgnr=0&nawnr=0&SleutelWaarde=" + car.getInvoiceNumber() + "&Caller=OnNotifyRowClick"));
+                } catch (IOException | URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
             grid.add(fvNumber, 1, row);
             grid.add(new Label(car.getDateOfInvoiceIssue()), 2, row);
